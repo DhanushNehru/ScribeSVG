@@ -1,11 +1,11 @@
-# 🌊 Typeflow
+# 🌊 ScribeSVG
 
-**Typeflow** is a next-generation, high-performance, and visually stunning typing animation generator for GitHub profiles, repositories, and portfolios. 
+**ScribeSVG** is a next-generation, high-performance, and visually stunning typing animation generator for GitHub profiles, repositories, and portfolios. 
 
-Built with **Next.js**, **React**, and **TypeScript**, and running entirely on **Vercel Edge Functions**, Typeflow generates lightweight, CSS-only animated SVGs in real-time. It requires zero JavaScript on the client rendering side, making it fully compatible with GitHub's image sandbox and Content Security Policies.
+Built with **Next.js**, **React**, and **TypeScript**, and running entirely on **Vercel Edge Functions**, ScribeSVG generates lightweight, CSS-only animated SVGs in real-time. It requires zero JavaScript on the client rendering side, making it fully compatible with GitHub's image sandbox and Content Security Policies.
 
 <p align="center">
-  <img src="https://typeflow.vercel.app/api/render?lines=Design+Beautiful+Readmes;Linear+Gradients+%26+Neon+Glows;macOS+Terminal+Mockups;Edge-Powered+0ms+Latency&font=Outfit&size=26&weight=500&layout=terminal&background=0b0f19&color=36bcf7&gradient=36bcf7,bd93f9&width=600&height=130&center=true" alt="Typeflow Demo" width="600" />
+  <img src="https://scribesvg.vercel.app/api/render?lines=Design+Beautiful+Readmes;Linear+Gradients+%26+Neon+Glows;macOS+Terminal+Mockups;Edge-Powered+0ms+Latency&font=Outfit&size=26&weight=500&layout=terminal&background=0b0f19&color=36bcf7&gradient=36bcf7,bd93f9&width=600&height=130&center=true" alt="ScribeSVG Demo" width="600" />
 </p>
 
 <p align="center">
@@ -17,11 +17,11 @@ Built with **Next.js**, **React**, and **TypeScript**, and running entirely on *
 
 ---
 
-## ✨ Features that make Typeflow Unique
+## ✨ Features that make ScribeSVG Unique
 
-Most profile widgets output static designs or struggle with browser compatibility. Typeflow is engineered with key differences:
+Most profile widgets output static designs or struggle with browser compatibility. ScribeSVG is engineered with key differences:
 
-*   **🔒 Web Sandbox Font Inlining (Google Fonts)**: Browsers block external network requests inside `<img>` tags, which breaks custom Google Fonts in normal SVGs. Typeflow's Edge Engine fetches, parses, and inlines fonts as **Base64-encoded Woff2 data URIs** directly inside the SVG, ensuring your custom fonts render flawlessly for every visitor.
+*   **🔒 Web Sandbox Font Inlining (Google Fonts)**: Browsers block external network requests inside `<img>` tags, which breaks custom Google Fonts in normal SVGs. ScribeSVG's Edge Engine fetches, parses, and inlines fonts as **Base64-encoded Woff2 data URIs** directly inside the SVG, ensuring your custom fonts render flawlessly for every visitor.
 *   **🎨 Custom Layout Mockups**: Renders text standalone, inside a sleek **macOS Terminal Window** (complete with window controls), or inside a **Glassmorphic Card** with glowing borders.
 *   **🌈 Text Gradients**: Native linear text gradients (SVG gradient mappings) with angle controls.
 *   **💡 Neon Glow Effects**: Customize filter gaussian blurs to apply subtle glowing neon signs to the text and cursor.
@@ -32,7 +32,7 @@ Most profile widgets output static designs or struggle with browser compatibilit
 
 ## 🚀 Interactive Playground
 
-Typeflow comes with a local, fully interactive visual builder interface. Toggle styles, add text lines, try preset themes (like Dracula, Cyberpunk, or Tokyo Night), change preview backgrounds to match GitHub Dark/Light modes, and copy code in one click.
+ScribeSVG comes with a local, fully interactive visual builder interface. Toggle styles, add text lines, try preset themes (like Dracula, Cyberpunk, or Tokyo Night), change preview backgrounds to match GitHub Dark/Light modes, and copy code in one click.
 
 To run it locally:
 ```bash
@@ -46,9 +46,9 @@ Open [http://localhost:3000](http://localhost:3000) to view the builder playgrou
 
 ## 🛠️ One-Click Deploy
 
-Host your own instance of Typeflow globally for free in less than 2 minutes.
+Host your own instance of ScribeSVG globally for free in less than 2 minutes.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdhanushnehru%2Ftypeflow)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDhanushNehru%2FScribeSVG)
 
 ---
 
