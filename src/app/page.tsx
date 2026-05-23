@@ -826,7 +826,7 @@ export default function BuilderPage() {
           <div className="sponsors-banner">
             <div className="sponsors-text">
               <h4>Want to feature on our dashboard?</h4>
-              <p>ScribeSVG is entirely open-source and run by developers. Support this project to unlock premium templates and display your profile to over 10,000+ monthly users.</p>
+              <p>ScribeSVG is entirely open-source and run by developers. Sponsor this project to show your support.</p>
             </div>
             <button 
               className="sponsor-button"
