@@ -188,10 +188,8 @@ export default function BuilderPage() {
     return col.startsWith('#') ? col.substring(1) : col;
   };
 
-  // Generate SVG API endpoint URL based on current configuration
-  const generatedUrl = useMemo(() => {
-    if (typeof window === 'undefined') return '';
-    const origin = window.location.origin;
+  // Generate query parameters based on current configuration
+  const queryParams = useMemo(() => {
     const params = new URLSearchParams();
 
     // Semicolon-separated lines
@@ -265,9 +263,12 @@ export default function BuilderPage() {
     // Misc
     if (!config.attribution) params.set('attribution', 'false');
 
-    // Return the full URL path
-    return `${origin}/api/render?${params.toString()}`;
+    // Return the query string
+    return params.toString();
   }, [config]);
+
+  // Use a relative path for the live preview
+  const generatedUrl = `/api/render?${queryParams}`;
 
   // Debounce URL updates to avoid hitting Vercel edge routes on every keystroke
   useEffect(() => {
@@ -284,16 +285,19 @@ export default function BuilderPage() {
 
   // Copy code handler
   const handleCopy = () => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    const absoluteUrl = `${origin}/api/render?${queryParams}`;
     let copyText = '';
+    
     switch (activeTab) {
       case 'markdown':
-        copyText = `[![Typing SVG](${generatedUrl})](https://github.com/dhanushnehru/ScribeSVG)`;
+        copyText = `[![Typing SVG](${absoluteUrl})](https://github.com/dhanushnehru/ScribeSVG)`;
         break;
       case 'html':
-        copyText = `<img src="${generatedUrl}" alt="Typing SVG" />`;
+        copyText = `<img src="${absoluteUrl}" alt="Typing SVG" />`;
         break;
       case 'url':
-        copyText = generatedUrl;
+        copyText = absoluteUrl;
         break;
     }
     
