@@ -1,4 +1,4 @@
-// SVG Renderer for Typeflow
+// SVG Renderer for ScribeSVG
 // Generates responsive, standard-compliant SVGs with CSS-only typing animations.
 
 const fontCache = new Map<string, string>();
@@ -492,7 +492,7 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
     <circle cx="36" cy="15" r="6" fill="#ffbd2e" />
     <circle cx="56" cy="15" r="6" fill="#27c93f" />
     <!-- Terminal Title -->
-    <text x="${width / 2}" y="20" fill="#8a91b4" font-family="'${fontName}', monospace" font-size="11" font-weight="500" text-anchor="middle">typeflow -- bash</text>
+    <text x="${width / 2}" y="20" fill="#8a91b4" font-family="'${fontName}', monospace" font-size="11" font-weight="500" text-anchor="middle">scribesvg -- bash</text>
     <!-- Inner border -->
     <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="${rx - 0.5}" fill="none" stroke="${strokeColor}" stroke-opacity="0.7" />
     `;
@@ -505,7 +505,7 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
   // Attribution badge (very small, optional watermark to drive virality)
   const attributionXml = attribution ? `
   <g opacity="0.3">
-    <text x="${width - 10}" y="${height - 10}" fill="#888888" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">made with typeflow</text>
+    <text x="${width - 10}" y="${height - 10}" fill="#888888" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">made with scribesvg</text>
   </g>
   ` : '';
 

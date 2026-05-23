@@ -287,7 +287,7 @@ export default function BuilderPage() {
     let copyText = '';
     switch (activeTab) {
       case 'markdown':
-        copyText = `[![Typing SVG](${generatedUrl})](https://github.com/dhanushnehru/typeflow)`;
+        copyText = `[![Typing SVG](${generatedUrl})](https://github.com/dhanushnehru/ScribeSVG)`;
         break;
       case 'html':
         copyText = `<img src="${generatedUrl}" alt="Typing SVG" />`;
@@ -343,7 +343,7 @@ export default function BuilderPage() {
     <>
       <header>
         <div className="logo-container">
-          <h1 className="logo-text">Typeflow</h1>
+          <h1 className="logo-text">ScribeSVG</h1>
           <span className="logo-badge">Edge Engine</span>
         </div>
         <p className="subtitle">
@@ -765,7 +765,7 @@ export default function BuilderPage() {
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img 
                   src={debouncedUrl} 
-                  alt="Typeflow Typing Animation Preview" 
+                  alt="ScribeSVG Typing Animation Preview" 
                   key={debouncedUrl} 
                   style={{ width: `${config.width}px` }}
                 />
@@ -808,7 +808,7 @@ export default function BuilderPage() {
 
             <div className="code-box-wrapper">
               <div className="code-box">
-                {activeTab === 'markdown' && `[![Typing SVG](${generatedUrl})](https://github.com/dhanushnehru/typeflow)`}
+                {activeTab === 'markdown' && `[![Typing SVG](${generatedUrl})](https://github.com/dhanushnehru/ScribeSVG)`}
                 {activeTab === 'html' && `<img src="${generatedUrl}" alt="Typing SVG" />`}
                 {activeTab === 'url' && generatedUrl}
               </div>
@@ -822,7 +822,7 @@ export default function BuilderPage() {
           <div className="sponsors-banner">
             <div className="sponsors-text">
               <h4>Want to feature on our dashboard?</h4>
-              <p>Typeflow is entirely open-source and run by developers. Support this project to unlock premium templates and display your profile to over 10,000+ monthly users.</p>
+              <p>ScribeSVG is entirely open-source and run by developers. Support this project to unlock premium templates and display your profile to over 10,000+ monthly users.</p>
             </div>
             <button 
               className="sponsor-button"
@@ -835,7 +835,7 @@ export default function BuilderPage() {
       </main>
 
       <footer>
-        <p>Built with Next.js Edge Engine. Fully Open Source on <a href="https://github.com/dhanushnehru/typeflow" target="_blank" rel="noreferrer">GitHub</a>.</p>
+        <p>Built with Next.js Edge Engine. Fully Open Source on <a href="https://github.com/dhanushnehru/ScribeSVG" target="_blank" rel="noreferrer">GitHub</a>.</p>
       </footer>
     </>
   );
