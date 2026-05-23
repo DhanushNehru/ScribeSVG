@@ -4,7 +4,7 @@
 
 Built with **Next.js**, **React**, and **TypeScript**, and running entirely on **Vercel Edge Functions**, ScribeSVG generates lightweight, CSS-only animated SVGs in real-time. It requires zero JavaScript on the client rendering side, making it fully compatible with GitHub's image sandbox and Content Security Policies.
 
-![ScribeSVG Demo](/assets/scribe-svg.gif)
+![ScribeSVG Demo](./public/assets/scribe-svg.gif)
 
 <p align="center">
   <a href="#-features"><strong>Explore Features</strong></a> •
