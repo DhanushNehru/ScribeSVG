@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
       ...(lines ? { lines } : {}),
       width,
       height,
-      font,
+      ...(font ? { font } : {}),
       size,
       weight,
       letterSpacing,

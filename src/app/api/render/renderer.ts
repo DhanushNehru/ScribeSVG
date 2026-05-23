@@ -182,6 +182,11 @@ async function fetchGoogleFontBase64(fontFamily: string, weight = 400): Promise<
 export async function renderSVG(options: Partial<RenderOptions>): Promise<string> {
   // Apply theme if provided
   const themeOpts = options.theme && THEMES[options.theme.toLowerCase()] ? THEMES[options.theme.toLowerCase()] : {};
+
+  // Filter out undefined values so they don't override defaults when spread
+  const definedOptions = Object.fromEntries(
+    Object.entries(options).filter(([, v]) => v !== undefined)
+  );
   
   const merged: RenderOptions = {
     lines: ['Hello World', 'Rebuilding in Next.js', 'Attracting Sponsors'],
@@ -207,8 +212,8 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
     layout: 'raw',
     attribution: true,
     ...themeOpts,
-    ...options
-  };
+    ...definedOptions
+  } as RenderOptions;
 
   const {
     lines,
