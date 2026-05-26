@@ -510,7 +510,7 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
   // Attribution badge (very small, optional watermark to drive virality)
   const attributionXml = attribution ? `
   <g opacity="0.3">
-    <text x="${width - 10}" y="${height - 10}" fill="#888888" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">made with scribesvg</text>
+    <text x="${width - 10}" y="${height - 10}" fill="#888888" font-family="system-ui, sans-serif" font-size="9" text-anchor="end">made with DhanushNehru/ScribeSVG</text>
   </g>
   ` : '';
 
