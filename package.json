@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "tsx --test src/app/api/render/parse-params.test.ts src/app/api/render/route.test.ts",
     "lint": "eslint"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
