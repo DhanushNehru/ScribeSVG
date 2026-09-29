@@ -84,6 +84,27 @@ export const THEMES: Record<string, Partial<RenderOptions>> = {
     background: '#120015',
     cursorColor: '#ff5e62',
     font: 'Comfortaa'
+  },
+  gruvbox: {
+    color: '#ebdbb2',
+    gradient: ['#fabd2f', '#fe8019'],
+    background: '#282828',
+    cursorColor: '#8ec07c',
+    font: 'Fira Code'
+  },
+  catppuccin: {
+    color: '#cdd6f4',
+    gradient: ['#89b4fa', '#cba6f7'],
+    background: '#1e1e2e',
+    cursorColor: '#f5e0dc',
+    font: 'Fira Code'
+  },
+  monokai: {
+    color: '#f8f8f2',
+    gradient: ['#f92672', '#a6e22e'],
+    background: '#272822',
+    cursorColor: '#66d9ef',
+    font: 'Fira Code'
   }
 };
 
