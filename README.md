@@ -58,7 +58,7 @@ Serve animations dynamically by appending parameters to the `/api/render` endpoi
 | :--- | :--- | :--- | :--- |
 | `lines` | `string` | `Hello World` | Semicolon-separated text lines to type. (e.g. `lines=Hello;World`) |
 | `layout` | `string` | `raw` | Choose frame: `raw` (none), `terminal` (macOS shell), `card` (glow container). |
-| `theme` | `string` | `none` | Pre-configured style: `dracula`, `cyberpunk`, `tokyonight`, `nord`, `synthwave`, `sunset`, `matrix`. |
+| `theme` | `string` | `none` | Pre-configured style: `dracula`, `cyberpunk`, `tokyonight`, `nord`, `synthwave`, `sunset`, `matrix`, `gruvbox`, `catppuccin`, `monokai`. |
 | `font` | `string` | `Fira Code` | Any Google Font (e.g. `Orbitron`, `Inter`) or system-safe font family. |
 | `size` | `number` | `24` | Font size in pixels. |
 | `color` | `string` | `36bcf7` | Hex code for text (without `#`). |
