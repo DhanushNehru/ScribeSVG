@@ -396,7 +396,6 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
   // Filters (Neon Glows)
   let filterDefs = '';
   if (textGlow > 0 || cursorGlow > 0) {
-    const maxGlow = Math.max(textGlow, cursorGlow);
     filterDefs = `
     <filter id="text-glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="${textGlow}" result="blur" />
@@ -417,8 +416,8 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
 
   // Layout geometry calculations
   let contentOffsetY = 0;
-  let layoutHeight = height;
-  let layoutWidth = width;
+  const layoutHeight = height;
+  const layoutWidth = width;
   let rx = 0; // rounded corners
   let strokeColor = '';
   
@@ -455,7 +454,7 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
     }
     
     // Cursor dimension and starting x-coordinate
-    let cursorX = clipX;
+    const cursorX = clipX;
     let cWidth = cursor === 'block' ? size * 0.6 : 2;
     let cHeight = size * 1.15;
     let cY = y - (size * 0.95);

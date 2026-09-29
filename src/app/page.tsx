@@ -422,7 +422,7 @@ export default function BuilderPage() {
               <label>Layout Style</label>
               <select 
                 value={config.layout} 
-                onChange={(e) => setConfig({ ...config, layout: e.target.value as any })}
+                onChange={(e) => setConfig({ ...config, layout: e.target.value as BuilderConfig['layout'] })}
               >
                 <option value="raw">Raw (Text Only)</option>
                 <option value="terminal">macOS Terminal Frame</option>
@@ -630,7 +630,7 @@ export default function BuilderPage() {
               <label>Cursor Style</label>
               <select 
                 value={config.cursor} 
-                onChange={(e) => setConfig({ ...config, cursor: e.target.value as any })}
+                onChange={(e) => setConfig({ ...config, cursor: e.target.value as BuilderConfig['cursor'] })}
               >
                 <option value="pipe">Pipe ( | )</option>
                 <option value="block">Solid Block ( █ )</option>
