@@ -42,9 +42,9 @@ test('lines and gradient omit empty entries and keep percent signs literal', () 
   assert.deepEqual(options.gradient, ['#ff0000', '#fff']);
 });
 
-test('render options retain defaults, aliases, and only valid enumerations', () => {
+test('render options retain defaults, aliases, and valid enumerations', () => {
   const options = parseRenderParams(
-    new URLSearchParams('speed=abc&center=true&hCenter=false&vCenter=false&cursor=invalid&layout=card&color=%23abc'),
+    new URLSearchParams('speed=abc&center=true&hCenter=false&vCenter=false&layout=card&color=%23abc'),
   );
 
   assert.equal(options.speed, 100);
@@ -86,4 +86,47 @@ test('render options pass through supported numeric, color, and display settings
     loop: false,
     attribution: false,
   });
+});
+
+test('rejects too many lines, oversized lines, and oversized total text', () => {
+  assert.throws(
+    () => parseRenderParams(new URLSearchParams({ lines: Array(11).fill('ok').join(';') })),
+    /lines.*10/i,
+  );
+  assert.throws(
+    () => parseRenderParams(new URLSearchParams({ lines: 'x'.repeat(201) })),
+    /line.*200/i,
+  );
+  assert.throws(
+    () => parseRenderParams(new URLSearchParams({ lines: Array(6).fill('x'.repeat(180)).join(';') })),
+    /total.*1000/i,
+  );
+});
+
+test('accepts text at the limits and preserves the explicit empty-lines override', () => {
+  assert.equal(parseRenderParams(new URLSearchParams({ lines: 'x'.repeat(200) })).lines?.[0].length, 200);
+  assert.equal(parseRenderParams(new URLSearchParams({ lines: Array(10).fill('x'.repeat(100)).join(';') })).lines?.length, 10);
+  assert.deepEqual(parseRenderParams(new URLSearchParams('lines=;')).lines, []);
+});
+
+test('clamps dimensions, font size, and animation timings without changing valid values', () => {
+  const options = parseRenderParams(new URLSearchParams(
+    'width=99999&height=-1&size=99999&speed=-10&deleteSpeed=99999&pause=-1',
+  ));
+
+  assert.equal(options.width, 2000);
+  assert.equal(options.height, 40);
+  assert.equal(options.size, 120);
+  assert.equal(options.speed, 10);
+  assert.equal(options.deleteSpeed, 1000);
+  assert.equal(options.pause, 0);
+  assert.equal(parseRenderParams(new URLSearchParams('width=800&height=200&size=24&speed=80&deleteSpeed=40&pause=1200')).width, 800);
+});
+
+test('rejects unknown cursor and layout values but accepts supported values', () => {
+  assert.throws(() => parseRenderParams(new URLSearchParams('layout=unknown')), /layout/i);
+  assert.throws(() => parseRenderParams(new URLSearchParams('cursor=unknown')), /cursor/i);
+  const options = parseRenderParams(new URLSearchParams('layout=terminal&cursor=none'));
+  assert.equal(options.layout, 'terminal');
+  assert.equal(options.cursor, 'none');
 });

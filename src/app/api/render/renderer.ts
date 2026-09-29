@@ -3,6 +3,10 @@
 
 const fontCache = new Map<string, string>();
 
+function escapeXmlText(value: string): string {
+  return value.replace(/[&<>]/g, char => char === '&' ? '&amp;' : char === '<' ? '&lt;' : '&gt;');
+}
+
 export interface RenderOptions {
   lines: string[];
   width: number;
@@ -483,7 +487,7 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
               letter-spacing="${letterSpacing}" 
               text-anchor="${anchor}"
               ${textGlow > 0 ? 'filter="url(#text-glow)"' : ''}
-        >${line.text}</text>
+        >${escapeXmlText(line.text)}</text>
       </g>
       ${cursor !== 'none' ? `
       <rect class="cursor-rect-${index}" 

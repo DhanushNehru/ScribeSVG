@@ -1,11 +1,24 @@
 // Next.js API Edge Route Handler for serving SVG typing animations.
 import { NextRequest } from 'next/server';
-import { parseRenderParams } from './parse-params';
+import { parseRenderParams, RenderParameterError } from './parse-params';
 import { renderSVG } from './renderer';
 
 export const runtime = 'edge';
 
+function badRequest(message: string): Response {
+  return new Response(message, {
+    status: 400,
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'no-store',
+    },
+  });
+}
+
 export async function GET(request: NextRequest) {
+  if (request.url.length > 8192) {
+    return badRequest('Request URL is too long');
+  }
   const { searchParams } = new URL(request.url);
 
   try {
@@ -19,6 +32,9 @@ export async function GET(request: NextRequest) {
       }
     });
   } catch (error) {
+    if (error instanceof RenderParameterError) {
+      return badRequest(error.message);
+    }
     console.error('Render error:', error);
     // Return a basic fallback SVG indicating error
     const errorSvg = `<?xml version="1.0" encoding="utf-8"?>

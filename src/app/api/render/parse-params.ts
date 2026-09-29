@@ -1,5 +1,18 @@
 import type { RenderOptions } from './renderer';
 
+export class RenderParameterError extends Error {}
+
+function parseClampedNum(
+  searchParams: URLSearchParams,
+  key: string,
+  fallback: number,
+  min: number,
+  max: number,
+): number {
+  const value = parseNum(searchParams, key, fallback) ?? fallback;
+  return Math.min(max, Math.max(min, value));
+}
+
 // URLSearchParams has already decoded percent escapes before these helpers run.
 export function parseColor(val: string | null): string {
   if (!val) return '';
@@ -31,7 +44,23 @@ export function parseBool(
 
 export function parseRenderParams(searchParams: URLSearchParams): Partial<RenderOptions> {
   const linesParam = searchParams.get('lines');
+  if (linesParam && linesParam.length > 2048) {
+    throw new RenderParameterError('lines parameter is too long');
+  }
   const lines = linesParam ? linesParam.split(';').filter(Boolean) : undefined;
+  if (lines && lines.length > 10) {
+    throw new RenderParameterError('lines cannot contain more than 10 entries');
+  }
+  let totalChars = 0;
+  for (const line of lines ?? []) {
+    if (line.length > 200) {
+      throw new RenderParameterError('Each line must be at most 200 characters');
+    }
+    totalChars += line.length;
+  }
+  if (totalChars > 1000) {
+    throw new RenderParameterError('Total lines text must be at most 1000 characters');
+  }
 
   const gradientParam = searchParams.get('gradient');
   const gradient = gradientParam ? gradientParam.split(',').map(parseColor).filter(Boolean) : undefined;
@@ -45,29 +74,35 @@ export function parseRenderParams(searchParams: URLSearchParams): Partial<Render
   const cursor = (['pipe', 'block', 'underscore', 'none'] as const).find(
     value => value === cursorParam,
   );
+  if (cursorParam !== null && !cursor) {
+    throw new RenderParameterError('Invalid cursor parameter');
+  }
 
   const layoutParam = searchParams.get('layout');
   const layout = (['raw', 'terminal', 'card'] as const).find(
     value => value === layoutParam,
   );
+  if (layoutParam !== null && !layout) {
+    throw new RenderParameterError('Invalid layout parameter');
+  }
 
   const theme = searchParams.get('theme') || undefined;
 
   return {
     ...(lines ? { lines } : {}),
-    width: parseNum(searchParams, 'width', 600),
-    height: parseNum(searchParams, 'height', 120),
+    width: parseClampedNum(searchParams, 'width', 600, 100, 2000),
+    height: parseClampedNum(searchParams, 'height', 120, 40, 1000),
     ...(font ? { font } : {}),
-    size: parseNum(searchParams, 'size', 24),
+    size: parseClampedNum(searchParams, 'size', 24, 12, 120),
     weight: parseNum(searchParams, 'weight', 400),
     letterSpacing: parseNum(searchParams, 'letterSpacing', 0),
     ...(color ? { color } : {}),
     ...(gradient ? { gradient } : {}),
     gradientAngle: parseNum(searchParams, 'gradientAngle', 90),
     ...(background ? { background } : {}),
-    speed: parseNum(searchParams, 'speed', 100),
-    deleteSpeed: parseNum(searchParams, 'deleteSpeed', 50),
-    pause: parseNum(searchParams, 'pause', 1500),
+    speed: parseClampedNum(searchParams, 'speed', 100, 10, 1000),
+    deleteSpeed: parseClampedNum(searchParams, 'deleteSpeed', 50, 10, 1000),
+    pause: parseClampedNum(searchParams, 'pause', 1500, 0, 10000),
     ...(cursor ? { cursor } : {}),
     ...(cursorColor ? { cursorColor } : {}),
     cursorGlow: parseNum(searchParams, 'cursorGlow', 0),
