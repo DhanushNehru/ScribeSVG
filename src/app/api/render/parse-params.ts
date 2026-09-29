@@ -53,10 +53,15 @@ export function parseRenderParams(searchParams: URLSearchParams): Partial<Render
   }
   let totalChars = 0;
   for (const line of lines ?? []) {
-    if (line.length > 200) {
+    let lineChars = 0;
+    for (let index = 0; index < line.length; index++) {
+      if (line.codePointAt(index)! > 0xFFFF) index++;
+      lineChars++;
+    }
+    if (lineChars > 200) {
       throw new RenderParameterError('Each line must be at most 200 characters');
     }
-    totalChars += line.length;
+    totalChars += lineChars;
   }
   if (totalChars > 1000) {
     throw new RenderParameterError('Total lines text must be at most 1000 characters');

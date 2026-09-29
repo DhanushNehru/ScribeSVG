@@ -4,7 +4,15 @@
 const fontCache = new Map<string, string>();
 
 function escapeXmlText(value: string): string {
-  return value.replace(/[&<>]/g, char => char === '&' ? '&amp;' : char === '<' ? '&lt;' : '&gt;');
+  return value.replace(
+    /[\u0000-\u0008\u000B\u000C\u000E-\u001F\uD800-\uDFFF\uFFFE\uFFFF&<>]/gu,
+    char => {
+      if (char === '&') return '&amp;';
+      if (char === '<') return '&lt;';
+      if (char === '>') return '&gt;';
+      return '\uFFFD';
+    },
+  );
 }
 
 export interface RenderOptions {

@@ -42,3 +42,14 @@ test('renders user text as SVG text rather than markup', async () => {
   assert.match(svg, />&lt;script&gt;&amp;"<\/text>/);
   assert.doesNotMatch(svg, /<script>/);
 });
+
+test('replaces XML-invalid characters while preserving valid Unicode text', async () => {
+  const request = new NextRequest('https://example.com/api/render?lines=A%00%1F%EF%BF%BEB%0AC%F0%9F%98%80&font=Arial');
+
+  const response = await GET(request);
+  const svg = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(svg, />A\uFFFD\uFFFD\uFFFDB\nC😀<\/text>/u);
+  assert.doesNotMatch(svg, /[\u0000\u001F\uFFFE]/u);
+});

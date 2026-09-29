@@ -109,6 +109,20 @@ test('accepts text at the limits and preserves the explicit empty-lines override
   assert.deepEqual(parseRenderParams(new URLSearchParams('lines=;')).lines, []);
 });
 
+test('counts Unicode code points for per-line and total text limits', () => {
+  const emoji = '😀';
+  assert.equal(parseRenderParams(new URLSearchParams({ lines: emoji.repeat(200) })).lines?.[0], emoji.repeat(200));
+  assert.throws(
+    () => parseRenderParams(new URLSearchParams({ lines: emoji.repeat(201) })),
+    /line.*200/i,
+  );
+  assert.equal(parseRenderParams(new URLSearchParams({ lines: Array(10).fill(emoji.repeat(100)).join(';') })).lines?.length, 10);
+  assert.throws(
+    () => parseRenderParams(new URLSearchParams({ lines: Array(6).fill(emoji.repeat(80) + 'x'.repeat(100)).join(';') })),
+    /total.*1000/i,
+  );
+});
+
 test('clamps dimensions, font size, and animation timings without changing valid values', () => {
   const options = parseRenderParams(new URLSearchParams(
     'width=99999&height=-1&size=99999&speed=-10&deleteSpeed=99999&pause=-1',
