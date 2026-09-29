@@ -83,6 +83,8 @@ https://your-domain.com/api/render?lines=Fullstack+Engineer;Open+Source+Contribu
 
 Contributions make the open-source community an amazing place to learn and create. Any contributions you make are **greatly appreciated**.
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for local setup, project structure, and pull request guidance.
+
 ### Adding a Theme Preset
 We encourage adding new beautiful themes. Simply open [src/app/api/render/renderer.ts](src/app/api/render/renderer.ts) and add your custom preset to the `THEMES` object:
 
