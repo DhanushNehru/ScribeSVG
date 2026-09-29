@@ -72,6 +72,10 @@ Serve animations dynamically by appending parameters to the `/api/render` endpoi
 | `center` | `boolean` | `false` | Set to `true` to center-align the text horizontally. |
 | `attribution` | `boolean` | `true` | Set to `false` to hide the small watermark. |
 
+The render API accepts at most 10 non-empty lines, 200 characters per line, and 1000 characters in total. Longer `lines` values and request URLs over 8192 characters return `400`. Unknown `layout` or `cursor` values also return `400`.
+
+Out-of-range numeric values are clamped: `width` to 100–2000, `height` to 40–1000, `size` to 12–120, `speed` and `deleteSpeed` to 10–1000 ms, and `pause` to 0–10000 ms.
+
 ### Example URL
 ```html
 https://your-domain.com/api/render?lines=Fullstack+Engineer;Open+Source+Contributor&layout=terminal&theme=dracula&center=true
