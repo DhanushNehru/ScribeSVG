@@ -26,7 +26,7 @@ interface BuilderConfig {
   center: boolean; // hCenter
   vCenter: boolean;
   loop: boolean;
-  layout: 'raw' | 'terminal' | 'card';
+  layout: 'raw' | 'terminal' | 'card' | 'minimal-border';
   theme: string;
   attribution: boolean;
 }
@@ -86,7 +86,7 @@ interface ThemePreset {
   isBgTransparent: boolean;
   cursorColor: string;
   font: string;
-  layout?: 'raw' | 'terminal' | 'card';
+  layout?: 'raw' | 'terminal' | 'card' | 'minimal-border';
   cursorGlow?: number;
   textGlow?: number;
 }
@@ -460,6 +460,7 @@ export default function BuilderPage() {
                 <option value="raw">Raw (Text Only)</option>
                 <option value="terminal">macOS Terminal Frame</option>
                 <option value="card">Glassmorphic Card</option>
+                <option value="minimal-border">Minimal Border</option>
               </select>
             </div>
 
