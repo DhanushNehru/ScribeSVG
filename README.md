@@ -57,7 +57,7 @@ Serve animations dynamically by appending parameters to the `/api/render` endpoi
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `lines` | `string` | `Hello World` | Semicolon-separated text lines to type. (e.g. `lines=Hello;World`) |
-| `layout` | `string` | `raw` | Choose frame: `raw` (none), `terminal` (macOS shell), `card` (glow container). |
+| `layout` | `string` | `raw` | Choose frame: `raw` (none), `terminal` (macOS shell), `card` (glow container), `minimal-border` (rounded accent outline). |
 | `theme` | `string` | `none` | Pre-configured style: `dracula`, `cyberpunk`, `tokyonight`, `nord`, `synthwave`, `sunset`, `matrix`, `gruvbox`, `catppuccin`, `monokai`. |
 | `font` | `string` | `Fira Code` | Any Google Font (e.g. `Orbitron`, `Inter`) or system-safe font family. |
 | `size` | `number` | `24` | Font size in pixels. |
@@ -75,6 +75,13 @@ Serve animations dynamically by appending parameters to the `/api/render` endpoi
 The render API accepts at most 10 non-empty lines, 200 Unicode code points per line, and 1000 code points in total. Longer `lines` values and request URLs over 8192 characters return `400`. Unknown `layout` or `cursor` values also return `400`. XML-invalid characters in rendered text are replaced.
 
 Out-of-range numeric values are clamped: `width` to 100–2000, `height` to 40–1000, `size` to 12–120, `speed` and `deleteSpeed` to 10–1000 ms, and `pause` to 0–10000 ms.
+
+### Minimal border
+Use `layout=minimal-border` for a rounded outline in the text color. It works with transparent backgrounds and keeps the text alignment unchanged.
+
+```html
+https://your-domain.com/api/render?lines=Hello+World&layout=minimal-border&color=36bcf7&background=transparent&center=true
+```
 
 ### Example URL
 ```html
