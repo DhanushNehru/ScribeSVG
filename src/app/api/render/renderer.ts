@@ -3,6 +3,18 @@
 
 const fontCache = new Map<string, string>();
 
+function escapeXmlText(value: string): string {
+  return value.replace(
+    /[\u0000-\u0008\u000B\u000C\u000E-\u001F\uD800-\uDFFF\uFFFE\uFFFF&<>]/gu,
+    char => {
+      if (char === '&') return '&amp;';
+      if (char === '<') return '&lt;';
+      if (char === '>') return '&gt;';
+      return '\uFFFD';
+    },
+  );
+}
+
 export interface RenderOptions {
   lines: string[];
   width: number;
@@ -483,7 +495,7 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
               letter-spacing="${letterSpacing}" 
               text-anchor="${anchor}"
               ${textGlow > 0 ? 'filter="url(#text-glow)"' : ''}
-        >${line.text}</text>
+        >${escapeXmlText(line.text)}</text>
       </g>
       ${cursor !== 'none' ? `
       <rect class="cursor-rect-${index}" 
