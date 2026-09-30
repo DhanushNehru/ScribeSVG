@@ -171,6 +171,39 @@ const THEME_PRESETS: ThemePreset[] = [
     cursorColor: '#ff5e62',
     font: 'Comfortaa',
     layout: 'raw'
+  },
+  {
+    name: 'gruvbox',
+    label: 'Gruvbox 🍂',
+    color: '#ebdbb2',
+    gradient: ['#fabd2f', '#fe8019'],
+    background: '#282828',
+    isBgTransparent: false,
+    cursorColor: '#8ec07c',
+    font: 'Fira Code',
+    layout: 'terminal'
+  },
+  {
+    name: 'catppuccin',
+    label: 'Catppuccin Mocha 🐈',
+    color: '#cdd6f4',
+    gradient: ['#89b4fa', '#cba6f7'],
+    background: '#1e1e2e',
+    isBgTransparent: false,
+    cursorColor: '#f5e0dc',
+    font: 'Fira Code',
+    layout: 'card'
+  },
+  {
+    name: 'monokai',
+    label: 'Monokai 🌈',
+    color: '#f8f8f2',
+    gradient: ['#f92672', '#a6e22e'],
+    background: '#272822',
+    isBgTransparent: false,
+    cursorColor: '#66d9ef',
+    font: 'Fira Code',
+    layout: 'terminal'
   }
 ];
 
@@ -193,7 +226,7 @@ export default function BuilderPage() {
     const params = new URLSearchParams();
 
     // Semicolon-separated lines
-    params.set('lines', config.lines.map(encodeURIComponent).join(';'));
+    params.set('lines', config.lines.join(';'));
 
     // Custom non-default sizes
     if (config.width !== DEFAULT_CONFIG.width) params.set('width', config.width.toString());
