@@ -37,7 +37,7 @@ export interface RenderOptions {
   hCenter: boolean;
   vCenter: boolean;
   loop: boolean;
-  layout: 'raw' | 'terminal' | 'card';
+  layout: 'raw' | 'terminal' | 'card' | 'minimal-border';
   theme?: string;
   attribution?: boolean;
 }
@@ -458,6 +458,8 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
     contentOffsetY = 35; // offset for title bar
     rx = 8;
     strokeColor = '#3a3d4d';
+  } else if (layout === 'minimal-border') {
+    rx = 8;
   } else if (layout === 'card') {
     rx = 12;
     strokeColor = 'rgba(255, 255, 255, 0.15)';
@@ -560,6 +562,10 @@ export async function renderSVG(options: Partial<RenderOptions>): Promise<string
     <text x="${width / 2}" y="20" fill="#8a91b4" font-family="'${fontName}', monospace" font-size="11" font-weight="500" text-anchor="middle">scribesvg -- bash</text>
     <!-- Inner border -->
     <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="${rx - 0.5}" fill="none" stroke="${strokeColor}" stroke-opacity="0.7" />
+    `;
+  } else if (layout === 'minimal-border') {
+    layoutDecorationsXml = `
+    <rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="${rx}" fill="none" stroke="${escapeXmlText(color).replaceAll('"', '&quot;')}" stroke-width="2" />
     `;
   } else if (layout === 'card') {
     layoutDecorationsXml = `

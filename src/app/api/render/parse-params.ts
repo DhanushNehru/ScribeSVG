@@ -84,7 +84,7 @@ export function parseRenderParams(searchParams: URLSearchParams): Partial<Render
   }
 
   const layoutParam = searchParams.get('layout');
-  const layout = (['raw', 'terminal', 'card'] as const).find(
+  const layout = (['raw', 'terminal', 'card', 'minimal-border'] as const).find(
     value => value === layoutParam,
   );
   if (layoutParam !== null && !layout) {

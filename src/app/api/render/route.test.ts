@@ -53,3 +53,23 @@ test('replaces XML-invalid characters while preserving valid Unicode text', asyn
   assert.match(svg, />A\uFFFD\uFFFD\uFFFDB\nC😀<\/text>/u);
   assert.doesNotMatch(svg, /[\u0000\u001F\uFFFE]/u);
 });
+
+test('renders minimal-border with the text accent and an inset outline', async () => {
+  const response = await GET(new NextRequest('https://example.com/api/render?layout=minimal-border&font=Arial&color=ff79c6&background=transparent&lines=Hello&width=100&height=40'));
+  const svg = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(svg, /<rect x="1" y="1" width="98" height="38" rx="8" fill="none" stroke="#ff79c6" stroke-width="2"/);
+  assert.doesNotMatch(svg, /Terminal Header Bar|Window buttons/);
+  assert.match(svg, /<text x="16" y="28\.4"/);
+});
+
+test('minimal-border preserves centering, background and escaped text', async () => {
+  const response = await GET(new NextRequest('https://example.com/api/render?layout=minimal-border&font=Arial&background=181a23&color=36bcf7&center=true&vCenter=false&lines=%3Chello%3E%26&width=600&height=120'));
+  const svg = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(svg, /<rect width="600" height="120" fill="#181a23" rx="8"/);
+  assert.match(svg, /<text x="300" y="40"/);
+  assert.match(svg, />&lt;hello&gt;&amp;<\/text>/);
+});
